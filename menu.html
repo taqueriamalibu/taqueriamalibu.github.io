@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taquería Malibú — Menú</title>
+  <meta name="description" content="Menú de Taquería Malibú — al pastor, árabe, asada y arrachera, cemitas, gringas y más. Av. Juárez 2318, Centro de Puebla.">
+  <meta name="theme-color" content="#0F0A06">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0F0A06;
+      --ink-soft:   #15100A;
+      --surface:    rgba(255, 247, 233, 0.045);
+      --surface-2:  rgba(255, 247, 233, 0.07);
+      --gold:        #E3B25A;
+      --gold-bright: #F3D58C;
+      --gold-deep:   #C8902F;
+      --ember:        #DD4A1E;
+      --ember-bright: #F0612A;
+      --cream:  #F6EEDD;
+      --muted:  rgba(246, 238, 221, 0.58);
+      --faint:  rgba(246, 238, 221, 0.34);
+      --line:      rgba(227, 178, 90, 0.20);
+      --line-soft: rgba(255, 255, 255, 0.07);
+      --wa:      #25D366;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--cream);
+      background: var(--ink);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    ::selection { background: rgba(227, 178, 90, 0.28); color: #fff; }
+
+    /* ── Fondo de brasas (consistente con la página), más oscurecido para
+          legibilidad sobre el menú con mucho texto ── */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: url('imagenes/fondo.jpg') center top / cover no-repeat;
+    }
+    .bg-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(120% 60% at 50% 0%, rgba(221, 74, 30, 0.22), transparent 60%),
+        linear-gradient(180deg, rgba(15, 10, 6, 0.7) 0%, rgba(15, 10, 6, 0.88) 30%, var(--ink) 62%);
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      pointer-events: none;
+      background: radial-gradient(135% 115% at 50% 30%, transparent 64%, rgba(0, 0, 0, 0.5) 100%);
+    }
+
+    /* ════════════════════════════════
+       HEADER
+    ════════════════════════════════ */
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, rgba(15, 10, 6, 0.92), rgba(15, 10, 6, 0.78));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    header {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 20px 20px 18px;
+      text-align: center;
+    }
+
+    .back-link {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--gold);
+      text-decoration: none;
+      transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+    }
+    .back-link:hover { background: rgba(227, 178, 90, 0.1); border-color: var(--gold); transform: translateY(-50%) scale(1.05); }
+    .back-link:active { transform: translateY(-50%) scale(0.94); }
+
+    .logo-mark {
+      width: 58px;
+      height: auto;
+      margin: 0 auto 8px;
+      display: block;
+      filter: brightness(0) invert(78%) sepia(56%) saturate(450%) hue-rotate(346deg) brightness(92%) contrast(89%) drop-shadow(0 4px 14px rgba(227, 178, 90, 0.22));
+    }
+    header h1 {
+      font-family: 'Fraunces', serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-size: 1.85rem;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      line-height: 1;
+    }
+    header .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 9px;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    header .eyebrow::before,
+    header .eyebrow::after {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+    header .eyebrow::after { background: linear-gradient(90deg, var(--gold), transparent); }
+
+    /* ── NAV TABS ── */
+    nav {
+      display: flex;
+      justify-content: flex-start;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4px 12px 0;
+    }
+    nav::-webkit-scrollbar { display: none; }
+
+    nav button {
+      flex-shrink: 0;
+      position: relative;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 14px 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.3s var(--ease-out);
+    }
+    nav button::after {
+      content: '';
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.4s var(--ease-out);
+    }
+    nav button:hover { color: var(--cream); }
+    nav button.active { color: var(--gold); }
+    nav button.active::after { transform: scaleX(1); }
+
+    /* ════════════════════════════════
+       SECCIONES
+    ════════════════════════════════ */
+    main { max-width: 640px; margin: 0 auto; padding: 30px 18px 120px; }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .section-head { margin-bottom: 26px; }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-size: clamp(2rem, 7vw, 2.7rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    .section-title em { font-style: italic; font-weight: 500; color: var(--gold); }
+
+    /* Etiqueta de subsección */
+    .sublabel {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 30px 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sublabel::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--line), transparent);
+    }
+    .sublabel:first-of-type { margin-top: 4px; }
+
+    /* Fila de platillo — estilo carta con puntos guía */
+    .item {
+      display: flex;
+      align-items: baseline;
+      padding: 12px 0;
+    }
+    .item-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1.35;
+    }
+    .item-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+    .dots {
+      flex: 1;
+      margin: 0 10px;
+      border-bottom: 1px dotted rgba(227, 178, 90, 0.32);
+      transform: translateY(-4px);
+      min-width: 14px;
+    }
+    .item-price {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: 0.01em;
+    }
+
+    /* Tarjeta destacada (kilo, alambres, quesos) */
+    .highlight-card {
+      position: relative;
+      margin: 12px 0 4px;
+      padding: 6px 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, var(--surface-2), var(--surface));
+      box-shadow: 0 24px 50px -32px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .highlight-card .item {
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .highlight-card .item:last-child { border-bottom: none; }
+    .highlight-card .item-price { color: var(--gold-bright); }
+
+    /* Animación de entrada de items al cambiar de pestaña */
+    .section.active .anim {
+      animation: itemIn 0.55s var(--ease-out) both;
+    }
+    @keyframes itemIn {
+      from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* Footer mini */
+    .menu-foot {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 18px 40px;
+      text-align: center;
+    }
+    .menu-foot .line { height: 1px; background: var(--line); max-width: 60px; margin: 0 auto 22px; }
+    .menu-foot p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+    .menu-foot .addr { color: var(--gold); font-family: 'Fraunces', serif; font-style: italic; font-size: 1.05rem; margin-bottom: 6px; }
+    .menu-foot .note { color: var(--faint); font-size: 0.76rem; margin-top: 10px; }
+
+    /* ── WhatsApp flotante ── */
+    .wa-float {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 200;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--wa);
+      color: #06301a;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 20px 14px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.42);
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), background 0.3s var(--ease-out);
+    }
+    .wa-float:hover { transform: translateY(-2px); background: #2BE072; box-shadow: 0 14px 38px rgba(37, 211, 102, 0.6); }
+    .wa-float:active { transform: scale(0.97); }
+    .wa-float svg { flex-shrink: 0; }
+
+    @media (max-width: 460px) {
+      .wa-float .wa-text { display: none; }
+      .wa-float { padding: 0; width: 56px; height: 56px; justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; }
+      .section.active .anim { animation: none; }
+      nav button::after { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-wrap"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <!-- HEADER + NAV -->
+  <div class="top">
+    <header>
+      <a href="index.html" class="back-link" aria-label="Volver al inicio">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <img class="logo-mark" src="imagenes/holaa-v2.png" alt="Taquería Malibú">
+      <h1>Taquería Malibú</h1>
+      <span class="eyebrow">Menú</span>
+    </header>
+
+    <nav>
+      <button class="active" data-target="pastor">Al Pastor</button>
+      <button data-target="arabe">Árabe</button>
+      <button data-target="asada">Asada</button>
+      <button data-target="quesos">Quesos</button>
+      <button data-target="otros">Otros</button>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- PASTOR -->
+    <section id="pastor" class="section active">
+      <div class="section-head anim">
+        <span class="section-eyebrow">Especialidad de la casa</span>
+        <h2 class="section-title">Carne <em>al pastor.</em></h2>
+      </div>
+
+      <div class="sublabel anim">Tacos</div>
+      <div class="item anim"><div><div class="item-name">Taco árabe pastor</div></div><div class="dots"></div><div class="item-price">$42</div></div>
+      <div class="item anim"><div><div class="item-name">Taco pastor maíz</div></div><div class="dots"></div><div class="item-price">$25</div></div>
+      <div class="item anim"><div><div class="item-name">Taco pastor maíz c/queso</div></div><div class="dots"></div><div class="item-price">$36</div></div>
+      <div class="item anim"><div><div class="item-name">Gringa pastor</div></div><div class="dots"></div><div class="item-price">$70</div></div>
+      <div class="item anim"><div><div class="item-name">Gringa doble pastor</div></div><div class="dots"></div><div class="item-price">$90</div></div>
+      <div class="item anim"><div><div class="item-name">Pizza al pastor</div></div><div class="dots"></div><div class="item-price">$99</div></div>
+
+      <div class="sublabel anim">Tortas y cemitas</div>
+      <div class="item anim"><div><div class="item-name">Torta pastor</div></div><div class="dots"></div><div class="item-price">$43</div></div>
+      <div class="item anim"><div><div class="item-name">Torta pastor c/queso</div></div><div class="dots"></div><div class="item-price">$70</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita pastor</div></div><div class="dots"></div><div class="item-price">$43</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita pastor c/queso</div></div><div class="dots"></div><div class="item-price">$70</div></div>
+
+      <div class="sublabel anim">Carne por kilo</div>
+      <div class="highlight-card anim">
+        <div class="item"><div><div class="item-name">1 kilo de carne</div></div><div class="dots"></div><div class="item-price">$399</div></div>
+        <div class="item"><div><div class="item-name">¾ kilo de carne</div></div><div class="dots"></div><div class="item-price">$300</div></div>
+        <div class="item"><div><div class="item-name">½ kilo de carne</div></div><div class="dots"></div><div class="item-price">$200</div></div>
+      </div>
+    </section>
+
+    <!-- ÁRABE -->
+    <section id="arabe" class="section">
+      <div class="section-head anim">
+        <span class="section-eyebrow">Tradición poblana</span>
+        <h2 class="section-title">Carne <em>árabe.</em></h2>
+      </div>
+
+      <div class="sublabel anim">Tacos</div>
+      <div class="item anim"><div><div class="item-name">Taco árabe</div></div><div class="dots"></div><div class="item-price">$42</div></div>
+      <div class="item anim"><div><div class="item-name">Taco oriental</div></div><div class="dots"></div><div class="item-price">$26</div></div>
+      <div class="item anim"><div><div class="item-name">Taco oriental c/queso</div></div><div class="dots"></div><div class="item-price">$52</div></div>
+      <div class="item anim"><div><div class="item-name">Gringa</div></div><div class="dots"></div><div class="item-price">$70</div></div>
+      <div class="item anim"><div><div class="item-name">Gringa doble</div></div><div class="dots"></div><div class="item-price">$90</div></div>
+      <div class="item anim"><div><div class="item-name">Pizza árabe</div></div><div class="dots"></div><div class="item-price">$99</div></div>
+
+      <div class="sublabel anim">Tortas y cemitas</div>
+      <div class="item anim"><div><div class="item-name">Torta árabe</div></div><div class="dots"></div><div class="item-price">$43</div></div>
+      <div class="item anim"><div><div class="item-name">Torta árabe c/queso</div></div><div class="dots"></div><div class="item-price">$70</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita árabe</div></div><div class="dots"></div><div class="item-price">$43</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita árabe c/queso</div></div><div class="dots"></div><div class="item-price">$70</div></div>
+
+      <div class="sublabel anim">Carne por kilo</div>
+      <div class="highlight-card anim">
+        <div class="item"><div><div class="item-name">1 kilo de carne</div></div><div class="dots"></div><div class="item-price">$399</div></div>
+        <div class="item"><div><div class="item-name">¾ kilo de carne</div></div><div class="dots"></div><div class="item-price">$300</div></div>
+        <div class="item"><div><div class="item-name">½ kilo de carne</div></div><div class="dots"></div><div class="item-price">$200</div></div>
+      </div>
+    </section>
+
+    <!-- ASADA -->
+    <section id="asada" class="section">
+      <div class="section-head anim">
+        <span class="section-eyebrow">Al carbón</span>
+        <h2 class="section-title">Asada y <em>arrachera.</em></h2>
+      </div>
+
+      <div class="sublabel anim">Tacos</div>
+      <div class="item anim"><div><div class="item-name">Taco de carne asada</div></div><div class="dots"></div><div class="item-price">$28</div></div>
+      <div class="item anim"><div><div class="item-name">Taco de carne asada c/queso</div></div><div class="dots"></div><div class="item-price">$38</div></div>
+      <div class="item anim"><div><div class="item-name">Taco de arrachera</div></div><div class="dots"></div><div class="item-price">$35</div></div>
+      <div class="item anim"><div><div class="item-name">Taco de arrachera c/queso</div></div><div class="dots"></div><div class="item-price">$45</div></div>
+
+      <div class="sublabel anim">Cemitas</div>
+      <div class="item anim"><div><div class="item-name">Cemita de carne asada</div></div><div class="dots"></div><div class="item-price">$53</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita de carne asada c/queso</div></div><div class="dots"></div><div class="item-price">$63</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita de arrachera</div></div><div class="dots"></div><div class="item-price">$60</div></div>
+      <div class="item anim"><div><div class="item-name">Cemita de arrachera c/queso</div></div><div class="dots"></div><div class="item-price">$75</div></div>
+
+      <div class="sublabel anim">Alambres</div>
+      <div class="highlight-card anim">
+        <div class="item"><div><div class="item-name">Alambre</div></div><div class="dots"></div><div class="item-price">$105</div></div>
+        <div class="item"><div><div class="item-name">Alambre c/queso</div></div><div class="dots"></div><div class="item-price">$120</div></div>
+      </div>
+    </section>
+
+    <!-- QUESOS -->
+    <section id="quesos" class="section">
+      <div class="section-head anim">
+        <span class="section-eyebrow">Para compartir</span>
+        <h2 class="section-title"><em>Quesos.</em></h2>
+      </div>
+      <div class="highlight-card anim">
+        <div class="item"><div><div class="item-name">Queso fundido natural</div></div><div class="dots"></div><div class="item-price">$75</div></div>
+        <div class="item"><div><div class="item-name">Queso fundido c/carne</div></div><div class="dots"></div><div class="item-price">$105</div></div>
+      </div>
+    </section>
+
+    <!-- OTROS -->
+    <section id="otros" class="section">
+      <div class="section-head anim">
+        <span class="section-eyebrow">Para acompañar</span>
+        <h2 class="section-title">Bebidas <em>y otros.</em></h2>
+      </div>
+
+      <div class="sublabel anim">Bebidas</div>
+      <div class="item anim"><div><div class="item-name">Refresco</div></div><div class="dots"></div><div class="item-price">$32</div></div>
+      <div class="item anim"><div><div class="item-name">Botella de agua ½ litro</div></div><div class="dots"></div><div class="item-price">$26</div></div>
+
+      <div class="sublabel anim">Otros platillos</div>
+      <div class="item anim"><div><div class="item-name">Caldo de camarón</div></div><div class="dots"></div><div class="item-price">$47</div></div>
+      <div class="item anim"><div><div class="item-name">Frijoles charros</div></div><div class="dots"></div><div class="item-price">$52</div></div>
+      <div class="item anim"><div><div class="item-name">Cebollas</div></div><div class="dots"></div><div class="item-price">$35</div></div>
+    </section>
+
+  </main>
+
+  <footer class="menu-foot">
+    <div class="line"></div>
+    <p class="addr">Av. Juárez 2318, Centro de Puebla</p>
+    <p>Lunes a sábado · 10:00 am – 10:00 pm</p>
+    <p class="note">Precios sujetos a cambio sin previo aviso</p>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/522223811755?text=%C2%A1Hola%20Malib%C3%BA!%20Quiero%20hacer%20un%20pedido" class="wa-float" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="wa-text">Pedir por WhatsApp</span>
+  </a>
+
+  <script>
+    const buttons = document.querySelectorAll('nav button');
+    const sections = document.querySelectorAll('.section');
+    function showSection(id, btn) {
+      sections.forEach(s => s.classList.remove('active'));
+      buttons.forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(id);
+      target.classList.add('active');
+      btn.classList.add('active');
+      // Reinicia la animación de entrada de los items
+      target.querySelectorAll('.anim').forEach((el, i) => {
+        el.style.animation = 'none';
+        // forzar reflow
+        void el.offsetWidth;
+        el.style.animation = '';
+        el.style.animationDelay = (i * 35) + 'ms';
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    buttons.forEach(b => b.addEventListener('click', () => showSection(b.dataset.target, b)));
+    // Stagger inicial de la primera sección
+    document.querySelectorAll('#pastor .anim').forEach((el, i) => { el.style.animationDelay = (i * 35) + 'ms'; });
+  </script>
+</body>
+</html>

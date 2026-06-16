@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taquería Malibú — Pastor al carbón en el corazón de Puebla</title>
+  <meta name="description" content="Taquería Malibú · Tacos árabes, al pastor, asada y arrachera al carbón. Av. Juárez 2318, Centro de Puebla. Pide por WhatsApp.">
+  <meta name="theme-color" content="#0F0A06">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Taquería Malibú — Pastor al carbón en Puebla">
+  <meta property="og:description" content="Árabes, al pastor, asada y arrachera. Recién hechos al carbón. Pide por WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="imagenes/trompo-poster-v2.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Lienzo / superficies ── */
+      --ink:        #0F0A06;
+      --ink-soft:   #15100A;
+      --surface:    rgba(255, 247, 233, 0.045);
+      --surface-2:  rgba(255, 247, 233, 0.07);
+
+      /* ── Oro premium (acento principal) ── */
+      --gold:        #E3B25A;
+      --gold-bright: #F3D58C;
+      --gold-deep:   #C8902F;
+
+      /* ── Fuego (energía secundaria) ── */
+      --ember:        #DD4A1E;
+      --ember-bright: #F0612A;
+
+      /* ── Texto ── */
+      --cream:  #F6EEDD;
+      --muted:  rgba(246, 238, 221, 0.58);
+      --faint:  rgba(246, 238, 221, 0.34);
+
+      /* ── Líneas ── */
+      --line:      rgba(227, 178, 90, 0.20);
+      --line-soft: rgba(255, 255, 255, 0.07);
+
+      /* ── WhatsApp ── */
+      --wa:      #25D366;
+      --wa-dark: #1FB457;
+
+      /* ── Curvas de animación ── */
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-io:  cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--cream);
+      background: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection { background: rgba(227, 178, 90, 0.28); color: #fff; }
+
+    /* ════════════════════════════════
+       FONDO — brasas + grado cálido
+    ════════════════════════════════ */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: url('imagenes/fondo.jpg') center center / cover no-repeat;
+    }
+    /* Grado de color cálido + oscurecido para profundidad premium */
+    .bg-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(120% 80% at 70% 8%, rgba(221, 74, 30, 0.18), transparent 55%),
+        radial-gradient(90% 60% at 30% 100%, rgba(15, 10, 6, 0.92), transparent 60%),
+        linear-gradient(180deg, rgba(15, 10, 6, 0.55) 0%, rgba(15, 10, 6, 0.62) 45%, rgba(15, 10, 6, 0.9) 100%);
+    }
+
+    /* Grano sutil fijo — rompe la planitud digital */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Viñeta de borde para encuadre premium — proporcional (escala en cualquier
+       pantalla; antes usaba 220px fijos que oscurecían de más en móvil) */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      pointer-events: none;
+      background: radial-gradient(135% 115% at 50% 40%, transparent 62%, rgba(0, 0, 0, 0.5) 100%);
+    }
+
+    /* ════════════════════════════════
+       SECCIÓN 1 — HERO
+    ════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100dvh;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 54% 46%;
+      align-items: stretch;
+      min-height: 100dvh;
+    }
+
+    /* ── Columna de contenido ── */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 36px 4vw 36px 9vw;
+      gap: clamp(14px, 1.6vh, 22px);
+      position: relative;
+      z-index: 3;
+    }
+
+    .logo-mark {
+      width: clamp(132px, 10.5vw, 168px);
+      height: auto;
+      /* Recolorea el logo blanco a oro premium */
+      filter: brightness(0) invert(78%) sepia(56%) saturate(450%) hue-rotate(346deg) brightness(92%) contrast(89%) drop-shadow(0 6px 24px rgba(227, 178, 90, 0.22));
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.05s both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.18s both;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-size: clamp(2.7rem, 4.8vw, 4.9rem);
+      line-height: 0.99;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.28s both;
+    }
+    .hero-title em {
+      display: block;
+      font-style: italic;
+      font-weight: 500;
+      background: linear-gradient(120deg, var(--gold-bright), var(--gold) 55%, var(--ember-bright));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.25vw, 1.12rem);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 30ch;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.4s both;
+    }
+
+    /* ── Cúmulo de conversión: estado + ubicación ── */
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 18px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.5s both;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--cream);
+      backdrop-filter: blur(6px);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--wa);
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+      animation: pulseDot 2.4s var(--ease-out) infinite;
+    }
+    .status-pill.cerrado .status-dot { background: var(--ember); animation: none; box-shadow: none; }
+    .status-pill .status-sub { color: var(--muted); font-weight: 500; }
+
+    .hero-loc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .hero-loc svg { color: var(--gold); flex-shrink: 0; }
+    .hero-loc a { color: var(--cream); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out); }
+    .hero-loc a:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ── Botones ── */
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 14px;
+      margin-top: 6px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.62s both;
+    }
+
+    .btn {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      padding: 16px 30px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), background 0.3s var(--ease-out);
+      will-change: transform;
+    }
+    .btn svg { flex-shrink: 0; }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-menu {
+      background: linear-gradient(135deg, var(--ember-bright), var(--ember));
+      color: #fff;
+      box-shadow: 0 8px 26px rgba(221, 74, 30, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+    .btn-menu:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(221, 74, 30, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-wa {
+      background: var(--wa);
+      color: #06301a;
+      box-shadow: 0 8px 26px rgba(37, 211, 102, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+    .btn-wa:hover {
+      transform: translateY(-3px);
+      background: #2BE072;
+      box-shadow: 0 14px 38px rgba(37, 211, 102, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    .btn .btn-ic {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      transition: transform 0.4s var(--ease-out);
+    }
+    .btn-wa .btn-ic { background: rgba(6, 48, 26, 0.14); }
+    .btn:hover .btn-ic { transform: translateX(2px); }
+
+    /* ── Columna del trompo (video) ── */
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      height: 100%;
+      overflow: visible;
+      z-index: 1;
+    }
+    /* Halo cálido detrás del trompo */
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 22%;
+      width: 36vw;
+      height: 36vw;
+      transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(221, 74, 30, 0.3) 0%, rgba(227, 178, 90, 0.12) 35%, transparent 68%);
+      filter: blur(10px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .video-float {
+      width: 100%;
+      height: 100%;
+      min-height: 100dvh;
+      position: relative;
+      overflow: visible;
+    }
+    .video-float video,
+    .video-float .video-poster {
+      position: absolute;
+      top: 50%;
+      left: 2%;
+      /* Anclado por altura: mantiene proporción y posición en cualquier ventana */
+      height: 94dvh;
+      width: auto;
+      max-width: 48vw;
+      transform: translateY(-50%);
+      display: block;
+      z-index: 1;
+      filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55)) contrast(1.05) saturate(1.08);
+      animation: floatTrompo 6s ease-in-out infinite;
+    }
+    .video-float .video-poster {
+      z-index: 2;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+    .video-float .video-poster.hidden { opacity: 0; }
+    .video-float video.no-alpha { mix-blend-mode: screen; }
+
+    /* ════════════════════════════════
+       SECCIÓN 2 — CARRUSEL / LA CARTA
+    ════════════════════════════════ */
+    .menu-section {
+      position: relative;
+      padding: clamp(70px, 9vw, 120px) 0 clamp(60px, 7vw, 90px);
+    }
+    /* Difuminado superior: integra el final oscuro del hero con el fondo de
+       brasas de esta sección (evita la línea negra marcada al hacer scroll) */
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: clamp(180px, 32vw, 320px);
+      background: linear-gradient(180deg, var(--ink) 0%, rgba(15, 10, 6, 0.72) 38%, rgba(15, 10, 6, 0.32) 70%, transparent 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .section-head {
+      max-width: 1240px;
+      margin: 0 auto clamp(40px, 5vw, 58px);
+      padding: 0 6vw;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .section-head-text { max-width: 640px; }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    .section-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--gold);
+    }
+    .section-note {
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 34ch;
+    }
+
+    .carousel-wrap {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 26px;
+      width: max-content;
+      padding: 14px 13px;
+      animation: scrollLeft 22s linear infinite;
+    }
+    .carousel-wrap:hover .carousel-track { animation-play-state: paused; }
+
+    .dish {
+      position: relative;
+      flex-shrink: 0;
+      width: 320px;
+      height: 380px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--ink-soft);
+      box-shadow: 0 22px 50px -24px rgba(0, 0, 0, 0.8);
+      transition: transform 0.55s var(--ease-out), box-shadow 0.55s var(--ease-out), border-color 0.55s var(--ease-out);
+    }
+    .dish::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 38%, rgba(15, 10, 6, 0.35) 64%, rgba(15, 10, 6, 0.92) 100%);
+      z-index: 1;
+    }
+    .dish img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Grado cálido: las fotos sobre blanco se integran al lienzo oscuro */
+      filter: saturate(1.16) contrast(1.08) brightness(0.92) sepia(0.08);
+      transition: transform 0.9s var(--ease-out);
+    }
+    .dish:hover {
+      transform: translateY(-8px);
+      border-color: rgba(227, 178, 90, 0.5);
+      box-shadow: 0 34px 70px -26px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(227, 178, 90, 0.12);
+    }
+    .dish:hover img { transform: scale(1.06); }
+
+    .dish-cap {
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      z-index: 2;
+    }
+    .dish-cap .num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .dish-cap .name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    /* ════════════════════════════════
+       SECCIÓN 3 — ENCUÉNTRANOS
+    ════════════════════════════════ */
+    .contact {
+      position: relative;
+      padding: clamp(60px, 8vw, 110px) 6vw clamp(50px, 6vw, 80px);
+    }
+    .contact-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(36px, 5vw, 72px);
+      align-items: center;
+    }
+
+    .contact-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .contact-eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .contact-title {
+      font-family: 'Fraunces', serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 22px;
+    }
+    .contact-title em { font-style: italic; font-weight: 500; color: var(--gold); }
+
+    .contact-lead {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 38ch;
+      margin-bottom: 34px;
+    }
+
+    .contact-phone {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+    }
+    .contact-phone a { color: var(--cream); text-decoration: none; transition: color 0.25s var(--ease-out); }
+    .contact-phone a:hover { color: var(--gold); }
+
+    .contact-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--wa);
+      color: #06301a;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 1.02rem;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 8px 26px rgba(37, 211, 102, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), background 0.3s var(--ease-out);
+    }
+    .contact-wa-btn:active { transform: scale(0.97); }
+    .contact-wa-btn:hover {
+      transform: translateY(-3px);
+      background: #2BE072;
+      box-shadow: 0 14px 38px rgba(37, 211, 102, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    .contact-wa-btn .btn-ic {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(6, 48, 26, 0.14);
+      transition: transform 0.4s var(--ease-out);
+    }
+    .contact-wa-btn:hover .btn-ic { transform: translateX(2px); }
+
+    /* Tarjeta de información — datos del local */
+    .contact-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--surface-2), var(--surface));
+      backdrop-filter: blur(10px);
+      padding: clamp(26px, 3vw, 40px);
+      box-shadow: 0 28px 60px -34px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .info-row {
+      display: flex;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .info-row:first-child { padding-top: 0; }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-ic {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--gold);
+    }
+    .info-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .info-value { font-size: 1rem; font-weight: 500; line-height: 1.5; color: var(--cream); }
+    .info-value a { color: var(--cream); text-decoration: none; transition: color 0.25s var(--ease-out); }
+    .info-value a:hover { color: var(--gold); }
+    .info-value .sub { display: block; font-size: 0.9rem; font-weight: 400; color: var(--muted); margin-top: 2px; }
+    .maps-link { display: inline-flex; align-items: center; gap: 6px; color: var(--gold) !important; font-weight: 600; font-size: 0.9rem; margin-top: 6px; }
+    .maps-link:hover { opacity: 0.8; }
+
+    /* Redes */
+    .social-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 20px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      background: var(--surface);
+      transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+    }
+    .social-link svg { flex-shrink: 0; }
+    .social-link:hover {
+      color: var(--gold);
+      border-color: rgba(227, 178, 90, 0.5);
+      background: rgba(227, 178, 90, 0.07);
+      transform: translateY(-2px);
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding: 40px 6vw 46px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .footer-mark {
+      width: 56px;
+      height: auto;
+      margin: 0 auto 16px;
+      filter: brightness(0) invert(78%) sepia(56%) saturate(450%) hue-rotate(346deg) brightness(92%) contrast(89%);
+      opacity: 0.78;
+    }
+    .footer p {
+      color: var(--faint);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+    .footer .sep { color: var(--line); margin: 0 8px; }
+
+    /* ── BOTÓN WHATSAPP FLOTANTE ── */
+    .wa-float {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      z-index: 200;
+      background: var(--wa);
+      color: #fff;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45);
+      text-decoration: none;
+      /* Oculto sobre el hero (ya hay CTA de WhatsApp ahí); aparece al hacer scroll */
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.8) translateY(12px);
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out), box-shadow 0.35s var(--ease-out);
+    }
+    .wa-float.show {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      animation: waPulse 2.8s ease-in-out infinite;
+    }
+    .wa-float:hover {
+      transform: scale(1.09);
+      box-shadow: 0 12px 36px rgba(37, 211, 102, 0.66);
+      animation: none;
+    }
+    .wa-float:active { transform: scale(0.96); }
+
+    /* ════════════════════════════════
+       ANIMACIONES
+    ════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
+      70%  { box-shadow: 0 0 0 9px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45); }
+      50%      { box-shadow: 0 8px 40px rgba(37, 211, 102, 0.78); }
+    }
+    @keyframes floatTrompo {
+      0%, 100% { transform: translateY(-50%); }
+      50%      { transform: translateY(-52%); }
+    }
+    @keyframes scrollLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(6px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), filter 0.9s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .reveal.d1 { transition-delay: 0.08s; }
+    .reveal.d2 { transition-delay: 0.16s; }
+    .reveal.d3 { transition-delay: 0.24s; }
+
+    /* ════════════════════════════════
+       RESPONSIVE — MÓVIL
+    ════════════════════════════════ */
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; min-height: 100dvh; }
+
+      .hero-left {
+        padding: 30px 7vw 54px;
+        gap: 18px;
+        justify-content: flex-end;
+        min-height: 100dvh;
+        position: relative;
+        z-index: 3;
+      }
+      /* Trompo como elemento atmosférico detrás del contenido */
+      .hero-right {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0.85;
+      }
+      .hero-right::before { left: 50%; transform: translate(-50%, -50%); top: 40%; width: 92vw; height: 92vw; }
+      .video-float video,
+      .video-float .video-poster {
+        left: 50%;
+        top: 40%;
+        width: 86vw;
+        height: auto;        /* resetea el anclaje por altura del desktop */
+        max-width: none;     /* resetea el límite del desktop */
+        transform: translate(-50%, -50%);
+        animation: none;
+      }
+      /* Degradado inferior que ancla el texto sobre el video */
+      .hero-left::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, transparent 18%, rgba(15, 10, 6, 0.5) 46%, rgba(15, 10, 6, 0.92) 72%);
+        pointer-events: none;
+      }
+
+      .logo-mark { width: 120px; margin-bottom: 2px; }
+      .hero-title { font-size: clamp(2.5rem, 11vw, 3.4rem); text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7); }
+      .hero-sub { font-size: 1rem; max-width: 100%; }
+      .hero-meta { gap: 10px 14px; }
+
+      .cta-row { gap: 11px; }
+      .btn { flex: 1; min-width: 0; justify-content: center; padding: 15px 18px; font-size: 0.96rem; }
+
+      .section-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .dish { width: 250px; height: 320px; }
+      .dish-cap .name { font-size: 1.3rem; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 34px; }
+      .contact-lead { max-width: 100%; }
+    }
+
+    @media (max-width: 420px) {
+      .btn { font-size: 0.88rem; padding: 14px 12px; gap: 8px; }
+      .btn .btn-ic { width: 22px; height: 22px; }
+      .hero-loc { font-size: 0.84rem; }
+    }
+
+    /* Movimiento reducido */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+      .reveal { filter: none; transform: none; }
+      .carousel-track { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo -->
+  <div class="bg-wrap"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <!-- ═══════════════════════════════
+       SECCIÓN 1 — HERO
+  ═══════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-grid">
+
+      <!-- Contenido -->
+      <div class="hero-left">
+        <img class="logo-mark" src="imagenes/holaa-v2.png" alt="Taquería Malibú" width="675" height="900" fetchpriority="high">
+
+        <span class="eyebrow">Taquería poblana · Av. Juárez</span>
+
+        <h1 class="hero-title">Brasa viva, <em>sabor que se queda.</em></h1>
+
+        <p class="hero-sub">Árabes, al pastor, asada y arrachera — al carbón y recién hechos, como manda Puebla.</p>
+
+        <div class="hero-meta">
+          <span class="status-pill" id="statusPill">
+            <span class="status-dot"></span>
+            <span><span id="statusText">Abierto ahora</span> <span class="status-sub" id="statusSub">· hoy hasta las 10 pm</span></span>
+          </span>
+          <span class="hero-loc">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <a href="https://maps.app.goo.gl/PwzafYrp6CYpHsHQ9" target="_blank" rel="noopener">Av. Juárez 2318, Centro</a>
+          </span>
+        </div>
+
+        <div class="cta-row">
+          <a href="https://wa.me/522223811755?text=%C2%A1Hola%20Malib%C3%BA!%20Quiero%20hacer%20un%20pedido" class="btn btn-wa" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Pedir por WhatsApp
+            <span class="btn-ic">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+          <a href="menu.html" class="btn btn-menu">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+            Ver Menú
+          </a>
+        </div>
+      </div>
+
+      <!-- Trompo (video con alfa real) -->
+      <div class="hero-right">
+        <div class="video-float">
+          <video id="trompo-video" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+          <!-- Póster con alfa: cubre el video hasta que reproduce (evita la caja negra
+               del primer frame; iOS lo muestra sin alfa cuando está pausado). -->
+          <img id="trompo-poster" class="video-poster" alt="" aria-hidden="true">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       SECCIÓN 2 — LA CARTA / CARRUSEL
+  ═══════════════════════════════ -->
+  <section class="menu-section">
+    <div class="section-head">
+      <div class="section-head-text reveal">
+        <span class="section-eyebrow">La carta</span>
+        <h2 class="section-title">Recién salidos <em>del trompo.</em></h2>
+      </div>
+      <p class="section-note reveal d1">Cada orden se prepara al momento, sobre carbón. Esto es lo que sale de nuestra cocina todos los días.</p>
+    </div>
+
+    <div class="carousel-wrap">
+      <div class="carousel-track">
+        <!-- Set 1 -->
+        <figure class="dish">
+          <img src="imagenes/3.jpg" alt="Taco árabe de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">1 ·</span> <span class="name">Taco árabe</span></figcaption>
+        </figure>
+        <figure class="dish">
+          <img src="imagenes/4.jpg" alt="Al pastor con piña de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">2 ·</span> <span class="name">Al pastor</span></figcaption>
+        </figure>
+        <figure class="dish">
+          <img src="imagenes/5.jpg" alt="Cemita al pastor de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">3 ·</span> <span class="name">Cemita al pastor</span></figcaption>
+        </figure>
+        <figure class="dish">
+          <img src="imagenes/6.jpg" alt="Cemita árabe de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">4 ·</span> <span class="name">Cemita árabe</span></figcaption>
+        </figure>
+        <!-- Set 2 (loop continuo) -->
+        <figure class="dish">
+          <img src="imagenes/3.jpg" alt="Taco árabe de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">1 ·</span> <span class="name">Taco árabe</span></figcaption>
+        </figure>
+        <figure class="dish">
+          <img src="imagenes/4.jpg" alt="Al pastor con piña de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">2 ·</span> <span class="name">Al pastor</span></figcaption>
+        </figure>
+        <figure class="dish">
+          <img src="imagenes/5.jpg" alt="Cemita al pastor de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">3 ·</span> <span class="name">Cemita al pastor</span></figcaption>
+        </figure>
+        <figure class="dish">
+          <img src="imagenes/6.jpg" alt="Cemita árabe de Taquería Malibú">
+          <figcaption class="dish-cap"><span class="num">4 ·</span> <span class="name">Cemita árabe</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       SECCIÓN 3 — ENCUÉNTRANOS
+  ═══════════════════════════════ -->
+  <section class="contact">
+    <div class="contact-inner">
+
+      <div class="contact-text reveal">
+        <span class="contact-eyebrow">Pasa a vernos</span>
+        <h2 class="contact-title">En el centro, <em>donde huele a carbón.</em></h2>
+        <p class="contact-lead">Estamos sobre la Av. Juárez, en pleno corazón de Puebla. Llega, llama o haz tu pedido por WhatsApp y lo tenemos listo.</p>
+
+        <div class="contact-phone"><a href="tel:+522223811755">+52 222 381 1755</a></div>
+
+        <a href="https://wa.me/522223811755?text=%C2%A1Hola%20Malib%C3%BA!%20Quiero%20hacer%20un%20pedido" class="contact-wa-btn" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Ordenar por WhatsApp
+          <span class="btn-ic">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="contact-card reveal d1">
+        <div class="info-row">
+          <div class="info-ic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="info-label">Dirección</div>
+            <div class="info-value">
+              Av. Juárez 2318, Centro<span class="sub">Puebla, Pue.</span>
+              <a href="https://maps.app.goo.gl/PwzafYrp6CYpHsHQ9" class="maps-link" target="_blank" rel="noopener">
+                Abrir en Google Maps
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-ic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div>
+            <div class="info-label">Horario</div>
+            <div class="info-value">Lunes a sábado<span class="sub">10:00 am – 10:00 pm</span></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-ic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="info-label">Teléfono</div>
+            <div class="info-value"><a href="tel:+522223811755">+52 222 381 1755</a></div>
+          </div>
+        </div>
+
+        <div class="social-row">
+          <a href="https://www.instagram.com/malibu_taqueria" class="social-link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/share/1ADmeyL6Yg/" class="social-link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.tiktok.com/@taqueria.malibu" class="social-link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.05a8.16 8.16 0 004.77 1.52V7.12a4.85 4.85 0 01-1-.43z"/></svg>
+            TikTok
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <img class="footer-mark" src="imagenes/holaa-v2.png" alt="Taquería Malibú">
+    <p>© 2025 Taquería Malibú <span class="sep">·</span> Av. Juárez 2318, Centro de Puebla <span class="sep">·</span> Todos los derechos reservados</p>
+  </footer>
+
+  <!-- Botón WhatsApp flotante -->
+  <a href="https://wa.me/522223811755?text=%C2%A1Hola%20Malib%C3%BA!%20Quiero%20hacer%20un%20pedido" class="wa-float" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    /* ── Reveal al hacer scroll ── */
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.14 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── WhatsApp flotante: oculto sobre el hero, aparece al pasar ── */
+    (function () {
+      const waFloat = document.querySelector('.wa-float');
+      const heroEl = document.querySelector('.hero');
+      if (!waFloat || !heroEl) return;
+      new IntersectionObserver(
+        ([e]) => waFloat.classList.toggle('show', !e.isIntersecting),
+        { threshold: 0.35 }
+      ).observe(heroEl);
+    })();
+
+    /* ── Estado Abierto / Cerrado en vivo (L–S, 10:00–22:00) ── */
+    (function () {
+      const pill = document.getElementById('statusPill');
+      const txt  = document.getElementById('statusText');
+      const sub  = document.getElementById('statusSub');
+      if (!pill) return;
+      const now = new Date();
+      const day = now.getDay();        // 0 = domingo
+      const hour = now.getHours();
+      const openDay = day >= 1 && day <= 6;     // lunes a sábado
+      const openHour = hour >= 10 && hour < 22; // 10am–10pm
+      if (openDay && openHour) {
+        txt.textContent = 'Abierto ahora';
+        sub.textContent = '· hoy hasta las 10 pm';
+      } else {
+        pill.classList.add('cerrado');
+        txt.textContent = 'Cerrado ahora';
+        sub.textContent = (day === 0) ? '· abrimos lunes 10 am' : '· abrimos a las 10 am';
+      }
+    })();
+
+    /* ── Trompo: HEVC alfa (Safari) → WebM VP9 alfa (Chrome/Firefox) → MP4 ── */
+    const trompoVideo = document.getElementById('trompo-video');
+    const trompoPoster = document.getElementById('trompo-poster');
+    const isMobile = window.innerWidth <= 860;
+    // Póster con alfa como capa ENCIMA del video. iOS muestra los videos con alfa
+    // sin transparencia cuando están pausados (caja negra), p.ej. en Modo de Bajo
+    // Consumo donde el autoplay no arranca. El póster cubre eso hasta que reproduce.
+    trompoPoster.src = isMobile ? 'imagenes/trompo-poster-mobile-v2.webp' : 'imagenes/trompo-poster-v2.webp';
+    function addSource(type, src) {
+      const s = document.createElement('source');
+      s.type = type;
+      s.src = src;
+      trompoVideo.appendChild(s);
+    }
+    if (isMobile) {
+      // Mobile: HEVC alfa real (iOS Safari) → WebM alfa real (Android Chrome) → MP4 fallback
+      addSource('video/mp4; codecs="hvc1"', 'imagenes/trompo-mobile-hevc-v3.mov');
+      addSource('video/webm', 'imagenes/trompo-mobile-v3.webm');
+      addSource('video/mp4', 'imagenes/trompo-mobile-v3.mp4');
+    } else {
+      // Desktop: WebM alfa (Chrome/Firefox) → HEVC alfa (Safari) → MP4 fallback
+      addSource('video/webm', 'imagenes/trompo-v2.webm');
+      addSource('video/mp4; codecs="hvc1"', 'imagenes/trompo-hevc-v2.mov');
+      addSource('video/mp4', 'imagenes/trompo-v2.mp4');
+    }
+    trompoVideo.load();
+
+    // Detección automática de soporte de transparencia (alfa).
+    // Dispositivos viejos (iPhone 8/A11, etc.) reproducen el video pero no
+    // decodifican el canal alfa → muestran caja negra. Detectamos ese caso
+    // dibujando un frame en un canvas y revisando si las esquinas son
+    // transparentes (alfa real) u opacas/negras (sin soporte). Si no hay
+    // soporte, aplicamos mix-blend-mode: screen como respaldo universal.
+    let alphaChecked = false;
+    function detectAlphaSupport() {
+      if (alphaChecked) return;
+      if (!trompoVideo.videoWidth || !trompoVideo.videoHeight) return;
+      // Solo es fiable con el video REPRODUCIENDO: iOS muestra los videos con alfa
+      // como negro opaco cuando están pausados, lo que daría un falso positivo.
+      if (trompoVideo.paused || trompoVideo.currentTime <= 0) return;
+      try {
+        const c = document.createElement('canvas');
+        c.width = trompoVideo.videoWidth;
+        c.height = trompoVideo.videoHeight;
+        const ctx = c.getContext('2d');
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(trompoVideo, 0, 0, c.width, c.height);
+        // Muestrear esquinas (zonas que deben ser transparentes alrededor del trompo)
+        const pts = [[2, 2], [c.width - 3, 2], [2, c.height - 3], [c.width - 3, c.height - 3]];
+        let opaqueCorners = 0;
+        for (const [x, y] of pts) {
+          const d = ctx.getImageData(x, y, 1, 1).data;
+          // Esquina opaca y oscura = el alfa NO se respetó (caja negra)
+          if (d[3] > 200 && d[0] < 40 && d[1] < 40 && d[2] < 40) opaqueCorners++;
+        }
+        alphaChecked = true;
+        if (opaqueCorners >= 3) {
+          // Sin soporte de alfa real → usar screen blend para ocultar el negro
+          trompoVideo.classList.add('no-alpha');
+        }
+      } catch (e) {
+        // Si el canvas falla por seguridad, no hacemos nada (mantenemos alfa real)
+      }
+    }
+    // Ocultar el póster SOLO cuando el video está reproduciéndose de verdad.
+    // 'timeupdate' garantiza que los frames avanzan (no basta 'playing'). Se da un
+    // pequeño margen para que la detección de alfa aplique el respaldo si hace falta.
+    function revealVideo() {
+      if (trompoVideo.paused || trompoVideo.readyState < 2 || trompoVideo.currentTime <= 0) return;
+      detectAlphaSupport();
+      setTimeout(() => trompoPoster.classList.add('hidden'), 220);
+    }
+    trompoVideo.addEventListener('timeupdate', revealVideo);
+    trompoVideo.addEventListener('playing', revealVideo);
+
+    // Forzar autoplay en iOS Safari
+    function playAll() {
+      document.querySelectorAll('video').forEach(v => {
+        v.muted = true;
+        v.play().catch(() => {});
+      });
+    }
+    playAll();
+    window.addEventListener('load', playAll);
+    setTimeout(playAll, 500);
+    setTimeout(playAll, 1500);
+    document.addEventListener('touchstart', playAll, { once: true });
+    document.addEventListener('touchend', playAll, { once: true });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) playAll(); });
+  </script>
+</body>
+</html>
